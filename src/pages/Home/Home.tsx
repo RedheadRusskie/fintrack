@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { Backdrop } from "../../components/Backdrop/Backdrop";
 import { HomeTabPanel } from "../../components/HomeTabPanel/HomeTabPanel";
 import { Modal } from "../../components/Modal/Modal";
@@ -5,11 +6,13 @@ import { Wrapper } from "../../components/Wrapper/Wrapper";
 
 export const Home: React.FC = () => {
   return (
-    <Backdrop>
+    <Box>
       <Modal />
-      <Wrapper>
-        <HomeTabPanel />
-      </Wrapper>
-    </Backdrop>
+      <Backdrop>
+        <Wrapper>
+          <HomeTabPanel />
+        </Wrapper>
+      </Backdrop>
+    </Box>
   );
 };
