@@ -2,7 +2,6 @@ import {
   Box,
   Center,
   FormControl,
-  FormHelperText,
   FormLabel,
   Input,
   SimpleGrid,
@@ -28,7 +27,6 @@ export const AddExpenseForm: React.FC = () => {
         <FormControl>
           <FormLabel>Name</FormLabel>
           <Input type="text" marginBottom="0.5em" />
-          {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
           <FormLabel>Amount</FormLabel>
           <Input marginBottom="0.4em" type="number" />
           <FormLabel>Currency</FormLabel>
