@@ -1,16 +1,15 @@
+import { Backdrop } from "../../components/Backdrop/Backdrop";
+import { HomeTabPanel } from "../../components/HomeTabPanel/HomeTabPanel";
 import { Modal } from "../../components/Modal/Modal";
+import { Wrapper } from "../../components/Wrapper/Wrapper";
 
 export const Home: React.FC = () => {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        backgroundColor: "rgba(66, 153, 225, 0.6)",
-      }}
-    >
+    <Backdrop>
       <Modal />
-      test
-    </div>
+      <Wrapper>
+        <HomeTabPanel />
+      </Wrapper>
+    </Backdrop>
   );
 };
