@@ -1,9 +1,10 @@
-export type ExpenseCategory = "food" | "phone";
+import { Timestamp } from "firebase/firestore";
 
-export interface Expense {
+export type Expense = {
   id: string;
-  title: string;
+  name: string;
   amount: number;
-  date: Date;
-  category: ExpenseCategory;
-}
+  date: Timestamp;
+  category: string;
+  currency: string;
+};
