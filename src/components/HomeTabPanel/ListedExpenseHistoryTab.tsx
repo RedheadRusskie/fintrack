@@ -14,7 +14,7 @@ export const ListedExpenseHistoryTab: React.FC = () => {
       <Box maxHeight="30em" overflow="auto" overflowY="auto">
         {expenses &&
           getSortedExpenses(expenses).map((expense: Expense) => {
-            return <ExpenseCard expense={expense} />;
+            return <ExpenseCard key={expense.id} expense={expense} />;
           })}
         {isLoading && <CircularProgress isIndeterminate color="blue.400" />}
       </Box>

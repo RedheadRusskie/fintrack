@@ -1,4 +1,12 @@
-import { Card, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  CardBody,
+  Center,
+  Flex,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
 import { Expense } from "../../types";
 import { Timestamp } from "firebase/firestore";
 import styles from "./ExpenseCard.module.scss";
@@ -33,10 +41,23 @@ export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
       margin="1em"
       key={expense.id}
     >
-      <Text>{expense.name}</Text>
-      <Text>{expense.amount}</Text>
-      <Text>{getConvertedDate(expense.date)}</Text>
-      <DeleteIcon onClick={handleClick} />
+      <Flex direction="row">
+        <Center>
+          <Box margin="2em">test</Box>
+        </Center>
+        <Box>
+          <Text>{expense.name}</Text>
+          <Text>{expense.amount}</Text>
+          <Text>{getConvertedDate(expense.date)}</Text>
+          <IconButton
+            onClick={handleClick}
+            backgroundColor="red.400"
+            width="4em"
+            aria-label="Search database"
+            icon={<DeleteIcon color="white" />}
+          />
+        </Box>
+      </Flex>
     </Card>
   );
 };
