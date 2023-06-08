@@ -1,29 +1,36 @@
-import { useEffect } from "react";
-import { useQuery, useQueryClient } from "react-query";
-import { collection, query, getDocs } from "firebase/firestore/lite";
+import { useEffect, useState } from "react";
+import { Expense } from "../types";
 import db from "../../db/db";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const useGetExpenses = () => {
-  const queryClient = useQueryClient();
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchExpenses = async () => {
-      const expensesCollection = collection(db, "Expenses");
-      const expensesQuery = query(expensesCollection);
+    const expensesCollection = collection(db, "Expenses");
 
-      const querySnapshot = await getDocs(expensesQuery);
-      const expenseData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+    const unsubscribe = onSnapshot(expensesCollection, (snapshot) => {
+      const expensesData: Expense[] = snapshot.docs.map((doc) => {
+        const { amount, category, currency, date, name } = doc.data();
+        return {
+          id: doc.id,
+          amount,
+          category,
+          currency,
+          date,
+          name,
+        };
+      });
 
-      queryClient.setQueryData("expenses", expenseData);
-    };
+      setExpenses(expensesData);
+      setIsLoading(false);
+    });
 
-    fetchExpenses();
-  }, [queryClient]);
+    return () => unsubscribe();
+  }, []);
 
-  return useQuery("expenses");
+  return { data: expenses, isLoading };
 };
 
 export default useGetExpenses;

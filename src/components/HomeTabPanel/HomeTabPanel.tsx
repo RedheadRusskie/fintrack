@@ -1,4 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { ListedExpenseHistoryTab } from "./ListedExpenseHistoryTab";
 
 export const HomeTabPanel: React.FC = () => {
   return (
@@ -6,7 +7,7 @@ export const HomeTabPanel: React.FC = () => {
       <TabList>
         <Tab>One</Tab>
         <Tab>Two</Tab>
-        <Tab>Three</Tab>
+        <Tab>History</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
@@ -16,7 +17,7 @@ export const HomeTabPanel: React.FC = () => {
           <p>two!</p>
         </TabPanel>
         <TabPanel>
-          <p>three!</p>
+          <ListedExpenseHistoryTab />
         </TabPanel>
       </TabPanels>
     </Tabs>
