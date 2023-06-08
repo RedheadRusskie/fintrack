@@ -13,7 +13,7 @@ import {
   Image,
   Center,
 } from "@chakra-ui/react";
-import welcome from "../../assets/undraw_love_it_3ag2.svg";
+import welcome from "../../assets/love.svg";
 
 export const Modal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
