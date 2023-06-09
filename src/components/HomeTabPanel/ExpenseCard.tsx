@@ -26,6 +26,7 @@ type ExpenseCardProps = {
 
 export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
   const toast = useToast();
+
   const getConvertedDate = (unixTime: Timestamp): string => {
     const unixTimeStamp = unixTime.seconds * 1000;
     return new Date(unixTimeStamp).toLocaleDateString(undefined, {
