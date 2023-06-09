@@ -1,5 +1,7 @@
 # FinTrack
 
+![SVG Image](https://raw.githubusercontent.com/RedheadRusskie/fintrack/tree/main/src/assets/fireworks.svg)
+
 A personal finance tracking application built with React, Chakra UI, Firebase, React-Hook-Form and more. 
 
 ## Features
