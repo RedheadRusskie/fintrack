@@ -6,6 +6,7 @@ import {
   IconButton,
   Text,
   Image,
+  useToast,
 } from "@chakra-ui/react";
 import { Expense } from "../../types";
 import { Timestamp } from "firebase/firestore";
@@ -13,16 +14,18 @@ import styles from "./ExpenseCard.module.scss";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { collection, doc, deleteDoc } from "firebase/firestore";
 import db from "../../../db/db";
-import car from "../../assets/car.svg";
-import food from "../../assets/food.svg";
-import gym from "../../assets/gym.svg";
-import couple from "../../assets/gym.svg";
+import Travel from "../../assets/car.svg";
+import Food from "../../assets/food.svg";
+import Health from "../../assets/gym.svg";
+import couple from "../../assets/couple.svg";
+import { ExpenseCategories } from "../../enums";
 
 type ExpenseCardProps = {
   expense: Expense;
 };
 
 export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
+  const toast = useToast();
   const getConvertedDate = (unixTime: Timestamp): string => {
     const unixTimeStamp = unixTime.seconds * 1000;
     return new Date(unixTimeStamp).toLocaleDateString(undefined, {
@@ -33,22 +36,36 @@ export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
   };
 
   const handleClick = async () => {
-    const expenseRef = doc(collection(db, "Expenses"), expense.id);
-    await deleteDoc(expenseRef);
+    try {
+      const expenseRef = doc(collection(db, "Expenses"), expense.id);
+      await deleteDoc(expenseRef);
+      showToast("Expense deleted", "success");
+    } catch (error) {
+      showToast(String(error), "error");
+    }
   };
 
   const getSourceByCategory = () => {
     switch (expense.category) {
-      case "Food":
-        return food;
-      case "Travel":
-        return car;
-      case "Gym":
-        return gym;
+      case ExpenseCategories.Food:
+        return Food;
+      case ExpenseCategories.Travel:
+        return Travel;
+      case ExpenseCategories.Health:
+        return Health;
 
       default:
         return couple;
     }
+  };
+
+  const showToast = (title: string, status: "success" | "error") => {
+    toast({
+      title,
+      position: "top",
+      status,
+      isClosable: true,
+    });
   };
 
   return (
@@ -75,7 +92,9 @@ export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
           <Text fontWeight="bold" color="blue.400" fontSize="2rem">
             {expense.name}
           </Text>
-          <Text color="gray.500">{getConvertedDate(expense.date)}</Text>
+          <Text textTransform="uppercase" color="gray.500">
+            {getConvertedDate(expense.date)}
+          </Text>
           <Flex direction="row" alignItems="baseline">
             <Text color="green.400" fontSize="3rem" fontWeight="black">
               {expense.amount}
