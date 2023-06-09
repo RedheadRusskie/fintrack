@@ -13,9 +13,9 @@ A personal finance tracking application built with React, Chakra UI, Firebase, R
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/your-username/fintrack.git
-   ```
+  ```bash
+  git clone https://github.com/your-username/fintrack.git
+  ```
    
 2. Navigate to the project directory:
 
