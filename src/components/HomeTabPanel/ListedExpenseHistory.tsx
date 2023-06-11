@@ -3,7 +3,7 @@ import useGetExpenses from "../../hooks/useGetExpenses";
 import { Expense } from "../../types";
 import { ExpenseCard } from "./ExpenseCard";
 
-export const ListedExpenseHistoryTab: React.FC = () => {
+export const ListedExpenseHistory: React.FC = () => {
   const { data: expenses, isLoading } = useGetExpenses();
 
   const getSortedExpenses = (expenses: Expense[]) =>
