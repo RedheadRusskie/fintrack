@@ -1,12 +1,22 @@
-import { Center, Box, SimpleGrid, GridItem, Text } from "@chakra-ui/react";
+import {
+  Center,
+  Box,
+  SimpleGrid,
+  GridItem,
+  Text,
+  Divider,
+  CircularProgress,
+  Card,
+} from "@chakra-ui/react";
 import useGetExpenses from "../../hooks/useGetExpenses";
 import { Expense } from "../../types";
+import { OverviewCard } from "./OverviewCard";
 
 export const Overview: React.FC = () => {
   const { data: expenses, isLoading } = useGetExpenses();
 
   const getTotalDailyExpense = () => {
-    if (expenses.length < 1 || isLoading) return 0;
+    if (expenses.length < 1 || isLoading) return;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -23,7 +33,7 @@ export const Overview: React.FC = () => {
   };
 
   const getAverageExpense = () => {
-    if (expenses.length < 1 || isLoading) return 0;
+    if (expenses.length < 1 || isLoading) return;
 
     const dailyExpenses: { [date: string]: number[] } = {};
 
@@ -51,60 +61,21 @@ export const Overview: React.FC = () => {
 
   return (
     <Box>
-      <Box
-        display="flex"
-        alignItems="baseline"
-        fontWeight="bold"
-        fontSize="3xl"
-      >
-        <Text color="blue.400" marginRight="1rem">
-          Your expenses for today:
-        </Text>
-        <Box display="flex" alignItems="flex-end">
-          <Text color="green.400" marginRight="0.25rem" lineHeight="normal">
-            {getTotalDailyExpense()}
-          </Text>
-          <Text
-            fontWeight="extrabold"
-            fontSize="xl"
-            color="green.600"
-            alignSelf="flex-end"
-          >
-            CZK
-          </Text>
-        </Box>
-      </Box>
-      <Box
-        display="flex"
-        alignItems="baseline"
-        fontWeight="bold"
-        fontSize="3xl"
-      >
-        <Text color="blue.400" marginRight="1rem">
-          Your average daily expense:
-        </Text>
-        <Box display="flex" alignItems="flex-end">
-          <Text color="green.400" marginRight="0.25rem" lineHeight="normal">
-            {getAverageExpense()}
-          </Text>
-          <Text
-            fontWeight="extrabold"
-            fontSize="xl"
-            color="green.600"
-            alignSelf="flex-end"
-          >
-            CZK
-          </Text>
-        </Box>
-      </Box>
-
       <Center>
         <SimpleGrid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem>
-            <Center>Test 1</Center>
+            <OverviewCard
+              title="Expenses today"
+              value={getTotalDailyExpense()}
+              isLoading={isLoading}
+            />
           </GridItem>
           <GridItem>
-            <Center>Test 2</Center>
+            <OverviewCard
+              title="Daily average"
+              value={getAverageExpense()}
+              isLoading={isLoading}
+            />
           </GridItem>
           <GridItem>
             <Center>Test 3</Center>
