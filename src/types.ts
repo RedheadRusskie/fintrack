@@ -15,3 +15,8 @@ export type FormData = {
   currency: string;
   category: string;
 };
+
+export type ChartDataItem = {
+  date: string;
+  amount: number;
+};
