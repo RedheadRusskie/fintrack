@@ -9,7 +9,7 @@ import {
 
 type OverviewProps = {
   title: string;
-  value: number | string | undefined;
+  value: number;
   isLoading: boolean;
 };
 

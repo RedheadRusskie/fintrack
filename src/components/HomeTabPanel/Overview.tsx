@@ -1,22 +1,15 @@
-import {
-  Center,
-  Box,
-  SimpleGrid,
-  GridItem,
-  Text,
-  Divider,
-  CircularProgress,
-  Card,
-} from "@chakra-ui/react";
+import { Center, Box, SimpleGrid, GridItem, Text } from "@chakra-ui/react";
 import useGetExpenses from "../../hooks/useGetExpenses";
 import { Expense } from "../../types";
 import { OverviewCard } from "./OverviewCard";
+import { ExpensesBarChart } from "./ExpensesBarChart";
 
 export const Overview: React.FC = () => {
   const { data: expenses, isLoading } = useGetExpenses();
 
-  const getTotalDailyExpense = () => {
-    if (expenses.length < 1 || isLoading) return;
+  const getTotalDailyExpense = (): number => {
+    if (expenses.length < 1 || isLoading) return 0;
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -32,8 +25,8 @@ export const Overview: React.FC = () => {
     );
   };
 
-  const getAverageExpense = () => {
-    if (expenses.length < 1 || isLoading) return;
+  const getAverageExpense = (): number => {
+    if (expenses.length < 1 || isLoading) return 0;
 
     const dailyExpenses: { [date: string]: number[] } = {};
 
@@ -56,31 +49,35 @@ export const Overview: React.FC = () => {
       averageDailyExpenses.reduce((sum, expense) => sum + expense, 0) /
       averageDailyExpenses.length;
 
-    return averageExpense.toFixed(2);
+    return Number(averageExpense.toFixed(2));
   };
 
   return (
     <Box>
+      <Text fontWeight="bold" color="blue.400" fontSize="5xl">
+        Overview
+      </Text>
+      <SimpleGrid columns={2} spacing={4}>
+        <GridItem>
+          <OverviewCard
+            title="Expenses today"
+            value={getTotalDailyExpense()}
+            isLoading={isLoading}
+          />
+        </GridItem>
+        <GridItem>
+          <OverviewCard
+            title="Daily average"
+            value={getAverageExpense()}
+            isLoading={isLoading}
+          />
+        </GridItem>
+      </SimpleGrid>
+
       <Center>
-        <SimpleGrid templateColumns="repeat(2, 1fr)" gap={4}>
-          <GridItem>
-            <OverviewCard
-              title="Expenses today"
-              value={getTotalDailyExpense()}
-              isLoading={isLoading}
-            />
-          </GridItem>
-          <GridItem>
-            <OverviewCard
-              title="Daily average"
-              value={getAverageExpense()}
-              isLoading={isLoading}
-            />
-          </GridItem>
-          <GridItem>
-            <Center>Test 3</Center>
-          </GridItem>
-        </SimpleGrid>
+        <Box mt={4}>
+          <ExpensesBarChart expenses={expenses} isLoading={isLoading} />
+        </Box>
       </Center>
     </Box>
   );
