@@ -66,6 +66,7 @@ export const OverviewCard: React.FC<OverviewProps> = ({
 
     return Number(averageExpense.toFixed(2));
   };
+
   return (
     <Card border="1px" borderColor="gray.400" padding="2em" borderRadius="lg">
       <Text fontSize="2xl" color="gray.400" textTransform="uppercase">
