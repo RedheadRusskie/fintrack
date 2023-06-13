@@ -25,6 +25,16 @@ export const AddExpenseForm: React.FC = () => {
   } = useForm<FormData>();
   const toast = useToast();
   const expensesCollection = collection(db, "Expenses");
+  const categories = [
+    "Transport",
+    "Gifts",
+    "Education",
+    "Food",
+    "Gaming",
+    "Health",
+    "Housing",
+    "Online Subscriptions",
+  ];
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -69,6 +79,7 @@ export const AddExpenseForm: React.FC = () => {
           <Input
             type="number"
             marginBottom="0.4em"
+            step="0.01"
             {...register("amount", { required: true, min: 0 })}
           />
           {errors.amount && <Text color="red.500">Amount is required</Text>}
@@ -79,7 +90,6 @@ export const AddExpenseForm: React.FC = () => {
             {...register("currency", { required: true })}
           >
             <option value="CZK">CZK</option>
-            <option value="EUR">EUR</option>
           </Select>
           {errors.currency && <Text color="red.500">Currency is required</Text>}
           <FormLabel>Category</FormLabel>
@@ -88,9 +98,11 @@ export const AddExpenseForm: React.FC = () => {
             placeholder="Select option"
             {...register("category", { required: true })}
           >
-            <option value="Option 1">Option 1</option>
-            <option value="Option 2">Option 2</option>
-            <option value="Option 3">Option 3</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </Select>
           {errors.category && <Text color="red.500">Category is required</Text>}
           <Button

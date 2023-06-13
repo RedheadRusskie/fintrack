@@ -14,10 +14,16 @@ import styles from "./ExpenseCard.module.scss";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { collection, doc, deleteDoc } from "firebase/firestore";
 import db from "../../../db/db";
-import Travel from "../../assets/car.svg";
+import Transport from "../../assets/car.svg";
 import Food from "../../assets/food.svg";
 import Health from "../../assets/gym.svg";
-import couple from "../../assets/couple.svg";
+import Couple from "../../assets/couple.svg";
+import Gaming from "../../assets/gaming.svg";
+import Gifts from "../../assets/art-gifts.svg";
+import Education from "../../assets/education.svg";
+import Housing from "../../assets/houses.svg";
+import Shopping from "../../assets/shopping.svg";
+import Subscriptions from "../../assets/onlinesubcsriptions.svg";
 import { ExpenseCategories } from "../../enums";
 
 type ExpenseCardProps = {
@@ -26,6 +32,32 @@ type ExpenseCardProps = {
 
 export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
   const toast = useToast();
+
+  const getSourceByCategory = () => {
+    switch (expense.category) {
+      case ExpenseCategories.Food:
+        return Food;
+      case ExpenseCategories.Transport:
+        return Transport;
+      case ExpenseCategories.Health:
+        return Health;
+      case ExpenseCategories.Gaming:
+        return Gaming;
+      case ExpenseCategories.Gifts:
+        return Gifts;
+      case ExpenseCategories.Education:
+        return Education;
+      case ExpenseCategories.Housing:
+        return Housing;
+      case ExpenseCategories.Shopping:
+        return Shopping;
+      case ExpenseCategories.Subscriptions:
+        return Subscriptions;
+
+      default:
+        return Couple;
+    }
+  };
 
   const getConvertedDate = (unixTime: Timestamp): string => {
     const unixTimeStamp = unixTime.seconds * 1000;
@@ -43,20 +75,6 @@ export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense }) => {
       showToast("Expense deleted", "success");
     } catch (error) {
       showToast(String(error), "error");
-    }
-  };
-
-  const getSourceByCategory = () => {
-    switch (expense.category) {
-      case ExpenseCategories.Food:
-        return Food;
-      case ExpenseCategories.Travel:
-        return Travel;
-      case ExpenseCategories.Health:
-        return Health;
-
-      default:
-        return couple;
     }
   };
 

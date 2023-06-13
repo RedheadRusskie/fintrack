@@ -1,11 +1,11 @@
 export enum ExpenseCategories {
   Food = "Food",
-  Travel = "Travel",
+  Transport = "Transport",
   Health = "Health",
   Education = "Education",
-  Default = "Default",
   Housing = "Housing",
   Gaming = "Gaming",
-  Subscriptions = "Subscriptions",
-  Shopping = "Shopping",
+  Subscriptions = "Online Subscriptions",
+  Shopping = "Clothing",
+  Gifts = "Gifts",
 }
